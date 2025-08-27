@@ -10,22 +10,22 @@ const Body = (props: Props) => {
     const {roomId} = useRoomChat()
 
     // TODO: Use from data/chat_response.json using axios
-    const messages = 'DO SOMETHING'
+    const comments = 'DO SOMETHING'
 
     return (
         <div className='flex-1 w-full flex overflow-y-scroll flex-col-reverse gap-2 p-3 no-scrollbar'>
-            {messages?.map(({message, senderImage, senderName, isCurrentUser}, index) => {
-                const lastByUser = messages[index - 1]?.message.senderId === messages.[index].message.senderId
+            {comments?.map(({comments, senderImage, senderName, isCurrentUser}, index) => {
+                const lastByUser = comments[index - 1]?.message.senderId === comments.[index].message.senderId
 
                 return <Message 
-                            key={message._id} 
+                            key={comments._id} 
                             fromCurrentUser={isCurrentUser} 
                             senderImage={senderImage} 
                             senderName={senderName} 
                             lastByUser={lastByUser} 
-                            content={message.content}
-                            createdAt={message._creationTime}
-                            type={message.type}
+                            content={comments.content}
+                            createdAt={comments._creationTime}
+                            type={comments.type}
                         />
             })}
         </div>
