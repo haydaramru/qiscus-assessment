@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { useConversation } from "@/hooks/useConversation"
+import { useRoomChat } from "@/hooks/useRoomChat"
 import { useNavigation } from "@/hooks/useNavigation"
 import Link from "next/link"
 
 const MobileNav = () => {
     const paths = useNavigation()
 
-    const { isActive } = useConversation()
+    const { isActive } = useRoomChat()
 
     if (isActive) return null
 
@@ -38,7 +38,6 @@ const MobileNav = () => {
                         })
                     }
                     <li><ThemeToggle /></li>
-                    {/* <li>Halo</li> */}
                 </ul>
             </nav>
         </Card>
