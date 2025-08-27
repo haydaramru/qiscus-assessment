@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  	title: "Qiscus Technical Assesment - Haydar Amru",
+  	title: "Qiscus Assesment - Haydar Amru",
   	description: "Submitted by Haydar Amru",
 };
 
