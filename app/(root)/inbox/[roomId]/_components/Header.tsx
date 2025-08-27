@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { CircleArrowLeft, EllipsisVertical } from 'lucide-react'
+import { ChevronLeft, CircleArrowLeft, EllipsisVertical } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,10 +19,10 @@ type Props = {
 
 const Header = ({imageUrl, name, options}: Props) => {
     return (
-        <Card className='w-full flex rounded-lg items-center p-2 justify-between '>
+        <Card className='w-full flex flex-row items-center justify-between p-2 rounded-lg'>
             <div className='flex items-center gap-2'>
-                <Link href='/inbox' className='block lg:hidden'>
-                    <CircleArrowLeft />
+                <Link href='/inbox' className='block'>
+                    <ChevronLeft className='h-5 w-5' />
                 </Link>
                 <Avatar>
                     <AvatarImage src={imageUrl}/>
@@ -36,7 +36,7 @@ const Header = ({imageUrl, name, options}: Props) => {
                 {options ? 
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            <Button size='icon' variant='secondary'>
+                            <Button size='icon' variant='ghost'>
                                 <EllipsisVertical />
                             </Button>
                         </DropdownMenuTrigger>

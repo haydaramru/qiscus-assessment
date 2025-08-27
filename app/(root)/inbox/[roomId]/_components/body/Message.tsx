@@ -8,7 +8,7 @@ type Props = {
     senderImage: string
     senderName: string
     lastByUser: boolean
-    content: string[]
+    content: string
     createdAt: number
     type: string
 }
@@ -25,7 +25,7 @@ const Message = ({ fromCurrentUser, senderImage, senderName, lastByUser, content
                 'order-1 items-end': fromCurrentUser,
                 'order-2 items-start': !fromCurrentUser
             })}>
-                <div className={cn('px-4 py-2 rounded-lg max-w-[70%]', {
+                <div className={cn('px-4 py-2 rounded-2xl max-w-[70%]', {
                     'bg-primary text-primary-foreground': fromCurrentUser,
                     'bg-secondary text-secondary-foreground': !fromCurrentUser,
                     'rounded-br-none': !lastByUser && fromCurrentUser,
@@ -41,7 +41,7 @@ const Message = ({ fromCurrentUser, senderImage, senderName, lastByUser, content
                 </div>
             </div>
 
-            <Avatar className={cn('relative w-8 h-8', {
+            <Avatar className={cn('relative size-10', {
                 'order-2': fromCurrentUser,
                 'order-1': !fromCurrentUser,
                 'invisible': lastByUser

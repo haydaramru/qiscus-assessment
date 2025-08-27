@@ -1,32 +1,39 @@
 "use client"
 
-import { useRoomChat } from '@/hooks/useRoomChat'
-import React from 'react'
+import React, { useMemo } from 'react'
 import Message from './Message'
+import { Comment, Participant } from '@/lib/types'
 
-type Props = {}
+type Props = {
+    comments: Comment[]
+    participants: Participant[]
+}
 
-const Body = (props: Props) => {
-    const {roomId} = useRoomChat()
-
-    // TODO: Use from data/chat_response.json using axios
-    const comments = 'DO SOMETHING'
+const Body = ({ comments, participants }: Props) => {
+    const ordered = useMemo(() => [...comments].reverse(), [comments])
+    const baseTime = useMemo(() => Date.now() - ordered.length * 60_000, [ordered.length])
 
     return (
         <div className='flex-1 w-full flex overflow-y-scroll flex-col-reverse gap-2 p-3 no-scrollbar'>
-            {comments?.map(({comments, senderImage, senderName, isCurrentUser}, index) => {
-                const lastByUser = comments[index - 1]?.message.senderId === comments.[index].message.senderId
+            {ordered.map((comment, index) => {
+                const prev = ordered[index - 1]
+                const sender = participants.find((p) => p.id === comment.sender)
+                const isAgent = sender?.role === 1
+                const lastByUser = prev ? prev.sender === comment.sender : false
+                const createdAt = baseTime - index * 60_000
 
-                return <Message 
-                            key={comments._id} 
-                            fromCurrentUser={isCurrentUser} 
-                            senderImage={senderImage} 
-                            senderName={senderName} 
-                            lastByUser={lastByUser} 
-                            content={comments.content}
-                            createdAt={comments._creationTime}
-                            type={comments.type}
-                        />
+                return (
+                <Message
+                    key={comment.id}
+                    fromCurrentUser={!!isAgent}
+                    senderImage={''}
+                    senderName={sender?.name || comment.sender}
+                    lastByUser={lastByUser}
+                    content={comment.message}
+                    createdAt={createdAt}
+                    type={comment.type}
+                />
+                )
             })}
         </div>
     )

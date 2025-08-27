@@ -1,64 +1,93 @@
 "use client"
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
-import { useRoomChat } from '@/hooks/useRoomChat'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Button } from '@/components/ui/button'
-import { SendHorizonal } from 'lucide-react'
+import { Paperclip, SendHorizonal } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 
 const ChatInput = () => {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-    const {roomId} = useRoomChat()
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
+    const [content, setContent] = useState("")
+    const [submitting, setSubmitting] = useState(false)
+    const [toast, setToast] = useState<{ message: string; show: boolean }>({ message: "", show: false })
+    const canSend = content.trim().length > 0 && !submitting
 
-    const handleInputChange = (event: any) => {
-        const {value, selectionStart} = event.target
+    const handleSubmit = async (e?: React.FormEvent) => {
+        e?.preventDefault()
+        if (!content.trim()) return
+        setSubmitting(true)
+        // Static/no-op: simulate send then clear
+        setTimeout(() => {
+        setContent("")
+        setSubmitting(false)
+        setToast({ message: 'Message sent (static)', show: true })
+        textareaRef.current?.focus()
+        }, 200)
+    }
 
-        if (selectionStart !== null) {
-            form.setValue('content', value)
+    useEffect(() => {
+        if (!toast.show) return
+        const t = setTimeout(() => setToast((cur) => ({ ...cur, show: false })), 1800)
+        return () => clearTimeout(t)
+    }, [toast.show])
+
+    const handleAttachClick = () => {
+        fileInputRef.current?.click()
+    }
+
+    const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        const files = e.target.files
+        if (files && files.length > 0) {
+        setToast({ message: `${files.length} file(s) attached (static)`, show: true })
+        // Reset input so selecting the same file again triggers change
+        e.currentTarget.value = ''
         }
     }
 
-    // TODO: Use from data/chat_response.json using axios
-    const handleSubmit = 'DO SOMETHING'
-
     return (
-        <Card className='w-full p-2 rounded-lg relative'>
-            <div className='flex gap-2 items-end w-full'>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(handleSubmit)} className='flex gap-2 items-end w-full'>
-                        <FormField control={form.control} name='content' render={({field}) => {
-                            return <FormItem className='h-full w-full'>
-                                <FormControl>
-                                    <TextareaAutosize 
-                                        onKeyDown={
-                                            async e => {
-                                                if (e.key === 'Enter' && !e.shiftKey) {
-                                                    e.preventDefault()
-                                                    await form.handleSubmit(handleSubmit)()
-                                                }
-                                            }
-                                        }
-                                        rows={1} 
-                                        maxRows={3} 
-                                        {...field} 
-                                        onChange={handleInputChange} 
-                                        onClick={handleInputChange} 
-                                        placeholder='Type a message...'
-                                        className='min-h-full w-full resize-none border-0 outline-0 bg-card text-card-foreground placeholder:text-muted-foreground p-1.5'
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        }}
-                        />
-                        <Button disabled={pending} size={'icon'} type='submit'>
-                            <SendHorizonal />
-                        </Button>
-                    </form>
-                </Form>
-            </div>
+        <Card className='w-full p-1 rounded-full relative'>
+            <form onSubmit={handleSubmit} className='flex items-center w-full'>
+                <Button size='icon' type='button' variant='ghost' aria-label='Attach file' onClick={handleAttachClick} className='shrink-0'>
+                    <Paperclip className='h-5 w-5' />
+                </Button>
+                <Input ref={fileInputRef} type='file' className='hidden' onChange={handleFileChange} />
+                <TextareaAutosize
+                    ref={textareaRef}
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    onKeyDown={async (e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault()
+                        await handleSubmit()
+                        }
+                    }}
+                    rows={1}
+                    maxRows={3}
+                    placeholder='Send a message...'
+                    className='
+                        flex-1 min-h-[36px] w-full resize-none
+                        bg-transparent p-2 text-sm placeholder:text-muted-foreground
+                        outline-none border-0
+                    '
+                />
+                <Button disabled={!canSend} size='icon' type='submit' aria-label='Send message' className='shrink-0'>
+                    <SendHorizonal className='h-5 w-5' />
+                </Button>
+            </form>
+            {toast.show ? (
+                <div
+                    role='status'
+                    className='
+                        pointer-events-none absolute -top-10 right-2 select-none
+                        rounded-md bg-secondary text-secondary-foreground shadow px-3 py-1 text-sm
+                    '
+                >
+                    {toast.message}
+                </div>
+            ) : null}
         </Card>
     )
 }
