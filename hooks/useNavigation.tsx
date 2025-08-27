@@ -7,10 +7,10 @@ export const useNavigation = () => {
 
     const paths = useMemo(() => [
         {
-            name: "Conversations",
-            href: "/conversations",
+            name: "Inbox",
+            href: "/inbox",
             icon: <MessageSquare />,
-            active: pathname.startsWith("/conversations")
+            active: pathname.startsWith("/inbox")
         },
     ], [pathname])
 
