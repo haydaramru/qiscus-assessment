@@ -20,6 +20,7 @@ const ChatInput = () => {
         }
     }
 
+    // TODO: Do Something
     const handleSubmit = 'DO SOMETHING'
 
     return (
