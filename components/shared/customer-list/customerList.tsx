@@ -14,7 +14,7 @@ const ItemList = ({ children, title, action: Action }: Props) => {
     const {isActive} = useRoomChat()
 
     return (
-        <Card className={cn("hidden h-full w-full lg:flex-none lg:w-96 p-2", {
+        <Card className={cn("hidden h-full w-full lg:flex-none lg:w-md p-2", {
             "block": !isActive,
             "lg:block": isActive
         })}>
