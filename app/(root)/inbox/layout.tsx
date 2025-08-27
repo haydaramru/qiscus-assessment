@@ -42,13 +42,21 @@ const InboxLayout = ({ children }: Props) => {
                 inbox.map((item) => {
                     const last = item.comments[item.comments.length - 1]
                     const customer = item.room.participant.find((p) => p.role === 2)
+                    const preview = (() => {
+                        if (!last) return ''
+                        if (last.type === 'text') return last.message
+                        if (last.type === 'image') return '[Image]' + (last.caption ? ` ${last.caption}` : '')
+                        if (last.type === 'video') return '[Video]' + (last.caption ? ` ${last.caption}` : '')
+                        if (last.type === 'pdf') return `[PDF] ${last.filename}`
+                        return ''
+                    })()
                     return (
                         <RoomItem
                             key={item.room.id}
                             roomId={String(item.room.id)}
                             name={customer?.name || ""}
                             imageUrl={item.room.image_url || ""}
-                            lastMessageContent={last?.message || ""}
+                            lastMessageContent={preview}
                             lastMessageSender={last?.sender || ""}
                         />
                     )
