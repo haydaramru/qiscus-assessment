@@ -1,40 +1,12 @@
 import fs from 'fs/promises'
 import path from 'path'
-
-type Participant = {
-    id: string
-    name: string
-    role: number
-}
-
-type Room = {
-	id: number
-	name: string
-	image_url: string
-	participant: Participant[]
-}
-
-type Comment = {
-	id: number
-	type: 'text'
-	message: string
-	sender: string
-}
-
-type ChatItem = {
-	room: Room
-	comments: Comment[]
-}
-
-type ChatResponse = {
-	results: ChatItem[]
-}
+import { ChatItem } from '@/lib/types'
 
 export async function GET(req: Request) {
 	try {
-		const filePath = path.join(process.cwd(), 'data', 'chat_response.json')
+		const filePath = path.join(process.cwd(), 'data', 'extended_chat_response.json')
 		const raw = await fs.readFile(filePath, 'utf-8')
-		const data = JSON.parse(raw) as ChatResponse
+		const data = JSON.parse(raw) as { results: ChatItem[] }
 
 		const url = new URL(req.url)
 		const roomId = url.searchParams.get('roomId')
@@ -65,4 +37,3 @@ export async function GET(req: Request) {
 		})
 	}
 }
-
