@@ -13,27 +13,30 @@ type Props = {
 }
 
 const RoomItem = ({roomId, imageUrl, name, lastMessageContent, lastMessageSender}: Props) => {
-  return (
-    <Link href={`/inbox/${roomId}`} className="full">
-        <Card className='p-2 flex flex-row items-center gap-4 truncate'>
-            <div className='flex flex-row items-center gap-4 truncate'>
-                <Avatar>
-                    <AvatarImage src={imageUrl}/>
-                    <AvatarFallback>
-                        <User />
-                    </AvatarFallback>
-                </Avatar>
-                <div className='flex flex-col truncate'>
-                    <h4 className='truncate'>{name}</h4>
-                    <span className='text-sm text-muted-foreground truncate overflow-ellipsis'>
-                        <p className='font-semibold'>{lastMessageSender}{':'}&nbsp;</p>
-                        <p className='truncate overflow-ellipsis'>{lastMessageContent}</p>
-                    </span>
+    const isYou = lastMessageSender === 'agent@mail.com'
+    return (
+        <Link href={`/inbox/${roomId}`} className="block w-full">
+            <Card className='w-full p-2 flex flex-row items-center gap-3'>
+                <div className='flex flex-row items-center gap-3 w-full'>
+                    <Avatar className='shrink-0'>
+                        <AvatarImage src={imageUrl}/>
+                        <AvatarFallback>
+                            <User />
+                        </AvatarFallback>
+                    </Avatar>
+                    <div className='flex flex-col min-w-0 flex-1'>
+                        <h4 className='truncate font-semibold'>{name}</h4>
+                        <div className='flex items-baseline gap-1 text-sm text-muted-foreground min-w-0'>
+                            {isYou ? (
+                                <span className='shrink-0 font-semibold'>You:</span>
+                            ) : null}
+                            <span className='truncate min-w-0 flex-1'>{lastMessageContent}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </Card>
-    </Link>
-  )
+            </Card>
+        </Link>
+    )
 }
 
 export default RoomItem
