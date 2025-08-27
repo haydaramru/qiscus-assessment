@@ -8,7 +8,7 @@ import DMConversationItem from "./_components/DMConversationItem";
 type Props = React.PropsWithChildren<{}>
 
 const ConversationsLayout = ({ children }: Props) => {
-    // Fetch from json
+    // TODO: Fetch from json
     const conversations = fetch()
 
     return (
@@ -20,7 +20,16 @@ const ConversationsLayout = ({ children }: Props) => {
                     No conversations found
                 </p>
             ) : conversations.map(conversations => {
-                return conversations.conversation.isGroup ? null : <DMConversationItem key={conversations.conversation.id} id={conversations.conversation.id} username={conversations.otherMember?.username || ""} imageUrl={conversations.otherMember?.imageUrl || ""}/>
+                return (
+                    conversations.conversation.isGroup ? null : <DMConversationItem 
+                                                                    key={conversations.conversation.id} 
+                                                                    id={conversations.conversation.id} 
+                                                                    username={conversations.otherMember?.username || ""} 
+                                                                    imageUrl={conversations.otherMember?.imageUrl || ""}
+                                                                    lastMessageContent={conversations.lastMessage?.content}
+                                                                    lastMessageSender={conversations.lastMessage?.sender}
+                                                                />
+                )
             })
             ) : <Spinner/>}
         </ItemList>
