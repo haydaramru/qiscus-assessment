@@ -32,12 +32,9 @@ const ConversationPage = ({params: {conversationId}}: Props) => {
         </p> : 
         <ConversationContainer>
             <Header
-                name={(conversation.isGroup ? conversation.name : conversation.otherMember.username) || ""} 
-                imageUrl={conversation.isGroup ? undefined : conversation.otherMember.imageUrl }
-                options={conversation.isGroup ? [
-                    { label: 'Leave Group', destructive: false, onClick: () => setLeaveGroupDialogOpen(true) }
-                    { label: 'Delete Group', destructive: true, onClick: () => setDeleteGroupDialogOpen(true) }
-                ] : [
+                name={ conversation.otherMember.username || ""} 
+                imageUrl={ conversation.otherMember.imageUrl }
+                options={[
                     { label: 'Remove friend', destructive: true, onClick: () => setRemoveFriendDialogOpen(true) }
                 ]}
             />

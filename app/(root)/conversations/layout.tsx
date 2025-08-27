@@ -8,7 +8,7 @@ import DMConversationItem from "./_components/DMConversationItem";
 type Props = React.PropsWithChildren<{}>
 
 const ConversationsLayout = ({ children }: Props) => {
-    // TODO: Fetch from json
+    // TODO: Fetch from json data
     const conversations = fetch()
 
     return (
