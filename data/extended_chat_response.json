@@ -1,0 +1,137 @@
+{
+    "results": [
+		{
+            "room": {
+                "name": "Product A",
+                "id": 12456,
+                "image_url": "https://picsum.photos/id/237/200/300",
+                "participant": [
+                    {
+                        "id": "admin@mail.com",
+                        "name": "Admin",
+                        "role": 0
+                    },
+                    {
+                        "id": "agent@mail.com",
+                        "name": "Agent A",
+                        "role": 1
+                    },
+                    {
+                        "id": "customer@mail.com",
+                        "name": "king customer",
+                        "role": 2
+                    }
+                ]
+            }, 
+            "comments": [
+                {
+                    "id": 885512,
+                    "type": "text",
+                    "message": "Selamat malam",
+                    "sender": "customer@mail.com"
+                },
+                {
+                    "id": 885513,
+                    "type": "text",
+                    "message": "Malam",
+                    "sender": "agent@mail.com"
+                },
+                {
+                    "id": 885514,
+                    "type": "text",
+                    "message": "Ada yang bisa saya bantu?",
+                    "sender": "agent@mail.com"
+                },
+                {
+                    "id": 885515,
+                    "type": "text",
+                    "message": "Saya ingin mengirimkan bukti pembayaran, karena diaplikasi selalu gagal",
+                    "sender": "customer@mail.com"
+                },
+                {
+                    "id": 885516,
+                    "type": "text",
+                    "message": "Baik, silahkan kirimkan lampiran bukti pembayarannya",
+                    "sender": "agent@mail.com"
+                }
+            ]
+        },
+        {
+            "room": {
+                "name": "Product B",
+                "id": 12457,
+                "image_url": "https://picsum.photos/id/82/600/400",
+                "participant": [
+                    {
+                        "id": "admin@mail.com",
+                        "name": "Admin",
+                        "role": 0
+                    },
+                    {
+                        "id": "agent@mail.com",
+                        "name": "Agent A",
+                        "role": 1
+                    },
+                    {
+                        "id": "customer@mail.com",
+                        "name": "queen customer",
+                        "role": 2
+                    }
+                ]
+            }, 
+            "comments": [
+                {
+                    "id": 885512,
+                    "type": "text",
+                    "message": "Selamat malam",
+                    "sender": "customer@mail.com"
+                },
+                {
+                    "id": 885513,
+                    "type": "text",
+                    "message": "Malam",
+                    "sender": "agent@mail.com"
+                },
+                {
+                    "id": 885514,
+                    "type": "text",
+                    "message": "Ada yang bisa saya bantu?",
+                    "sender": "agent@mail.com"
+                },
+                {
+                    "id": 885515,
+                    "type": "text",
+                    "message": "Saya ingin mengirimkan bukti pembayaran, karena diaplikasi selalu gagal",
+                    "sender": "customer@mail.com"
+                },
+                {
+                    "id": 885516,
+                    "type": "text",
+                    "message": "Baik, silahkan kirimkan lampiran bukti pembayarannya",
+                    "sender": "agent@mail.com"
+                },
+				{
+					"id": 885517,
+					"type": "pdf",
+					"url": "https://tourism.gov.in/sites/default/files/2019-04/dummy-pdf_2.pdf",
+					"caption": "Bukti pembayaran",
+					"sender": "customer@mail.com"
+				},
+				{
+					"id": 885518,
+					"type": "image",
+					"url": "https://picsum.photos/id/82/600/400",
+					"caption": "Bukti pembayaran",
+					"sender": "agent@mail.com"
+				},
+				{
+					"id": 885519,
+					"type": "video",
+					"url": "https://www.w3schools.com/html/mov_bbb.mp4",
+					"caption": "Video bukti error di aplikasi",
+					"sender": "customer@mail.com"
+				}
+            ]
+        }
+    ]
+}
