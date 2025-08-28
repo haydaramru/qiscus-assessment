@@ -33,7 +33,9 @@ const InboxLayout = ({ children }: Props) => {
         <>
         <ItemList title="Inbox">
             {inbox === undefined ? (
-                <Spinner variant="bars" />
+                <div className="w-full h-full flex items-center justify-center">
+                    <Spinner variant="bars" />
+                </div>
             ) : inbox === null ? (
                 <p className="w-full h-full flex items-center justify-center">Failed to load inbox</p>
             ) : inbox.length === 0 ? (
