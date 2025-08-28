@@ -3,6 +3,7 @@
 import RoomChatContainer from "@/components/shared/room-chat/RoomChatContainer";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "./_components/Header";
 import Body from "./_components/body/Body";
 import ChatInput from "./_components/input/ChatInput";
@@ -16,6 +17,7 @@ type Props = {
 }
 
 const RoomChatPage = ({ params: { roomId } }: Props) => {
+    const router = useRouter()
     const [inbox, setInbox] = useState<ChatItem | null | undefined>(undefined)
 
     useEffect(() => {
@@ -48,7 +50,7 @@ const RoomChatPage = ({ params: { roomId } }: Props) => {
                 <Header
                     name={inbox.room.participant.find((p) => p.role === 2)?.name || ""}
                     imageUrl={inbox.room.image_url}
-                    options={[{ label: 'Remove client', destructive: true, onClick: () => {} }]}
+                    options={[{ label: 'Close chat', destructive: true, onClick: () => router.push('/inbox') }]}
                 />
                 <Body comments={inbox.comments} participants={inbox.room.participant} />
                 <ChatInput />

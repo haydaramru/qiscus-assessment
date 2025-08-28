@@ -19,18 +19,18 @@ type Props = {
 
 const Header = ({imageUrl, name, options}: Props) => {
     return (
-        <Card className='w-full flex flex-row items-center justify-between p-2 rounded-lg'>
+        <Card className='w-full flex flex-row items-center justify-between p-3 bg-transparent rounded-none'>
             <div className='flex items-center gap-2'>
                 <Link href='/inbox' className='block'>
                     <ChevronLeft className='h-5 w-5' />
                 </Link>
-                <Avatar>
+                <Avatar className='size-10'>
                     <AvatarImage src={imageUrl}/>
                     <AvatarFallback>
                         {name.substring(0,1)}
                     </AvatarFallback>
                 </Avatar>
-                <h2 className='font-semibold'>{name}</h2>
+                <div className='font-semibold text-lg'>{name}</div>
             </div>
             <div className='flex gap-2'>
                 {options ? 
