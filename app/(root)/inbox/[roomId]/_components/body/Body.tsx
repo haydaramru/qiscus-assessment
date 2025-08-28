@@ -11,7 +11,7 @@ type Props = {
 
 const Body = ({ comments, participants }: Props) => {
     const ordered = useMemo(() => [...comments].reverse(), [comments])
-    const baseTime = useMemo(() => Date.now() - ordered.length * 60_000, [ordered.length])
+    const baseTime = useMemo(() => Date.now() + ordered.length * 60_000, [ordered.length])
 
     return (
         <div className='flex-1 w-full flex overflow-y-scroll flex-col-reverse gap-2 p-3 no-scrollbar'>
@@ -20,7 +20,7 @@ const Body = ({ comments, participants }: Props) => {
                 const sender = participants.find((p) => p.id === comment.sender)
                 const isAgent = sender?.role === 1
                 const lastByUser = prev ? prev.sender === comment.sender : false
-                const createdAt = baseTime + index * 60_000
+                const createdAt = baseTime - index * 60_000
 
                 const extraProps = (() => {
                     if (comment.type === 'text') return { content: (comment as any).message as string }
