@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react'
 import Message from './Message'
-import { Comment, Participant } from '@/lib/types'
+import { Comment, Participant, CommentText, CommentImage, CommentVideo, CommentPdf } from '@/lib/types'
 
 type Props = {
     comments: Comment[]
@@ -23,11 +23,23 @@ const Body = ({ comments, participants }: Props) => {
                 const createdAt = baseTime - index * 60_000
 
                 const extraProps = (() => {
-                    if (comment.type === 'text') return { content: (comment as any).message as string }
-                    if (comment.type === 'image') return { mediaUrl: (comment as any).url as string, content: (comment as any).caption as string | undefined }
-                    if (comment.type === 'video') return { mediaUrl: (comment as any).url as string, content: (comment as any).caption as string | undefined }
-                    if (comment.type === 'pdf') return { mediaUrl: (comment as any).url as string, filename: (comment as any).filename as string }
-                    return {}
+                    if (comment.type === 'text') {
+                        const c = comment as CommentText
+                        return { content: c.message }
+                    }
+                    if (comment.type === 'image') {
+                        const c = comment as CommentImage
+                        return { mediaUrl: c.url, content: c.caption }
+                    }
+                    if (comment.type === 'video') {
+                        const c = comment as CommentVideo
+                        return { mediaUrl: c.url, content: c.caption }
+                    }
+                    if (comment.type === 'pdf') {
+                        const c = comment as CommentPdf
+                        return { mediaUrl: c.url, filename: c.filename }
+                    }
+                    return {} as Record<string, never>
                 })()
 
                 return (
@@ -38,7 +50,7 @@ const Body = ({ comments, participants }: Props) => {
                         senderName={sender?.name || comment.sender}
                         lastByUser={lastByUser}
                         createdAt={createdAt}
-                        type={comment.type as any}
+                        type={comment.type}
                         {...extraProps}
                     />
                 )

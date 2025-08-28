@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { ChevronLeft, CircleArrowLeft, EllipsisVertical } from 'lucide-react'
+import { ChevronLeft, EllipsisVertical } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
