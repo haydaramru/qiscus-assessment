@@ -7,7 +7,7 @@ import RoomItem from "./_components/RoomItem";
 import axios from "axios";
 import { ChatItem } from "@/lib/types";
 
-type Props = React.PropsWithChildren<{}>
+type Props = React.PropsWithChildren
 
 const InboxLayout = ({ children }: Props) => {
     const [inbox, setInbox] = useState<ChatItem[] | null | undefined>(undefined)

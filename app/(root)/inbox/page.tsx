@@ -1,9 +1,7 @@
 import RoomChatFallback from "@/components/shared/room-chat/RoomChatFallback";
 import React from "react";
 
-type Props = {}
-
-const InboxPage = (props: Props) => {
+const InboxPage = () => {
     return (
         <RoomChatFallback />
     )
