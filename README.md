@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Qiscus Assessment
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This repository contains my submission for Qiscus assessment that involves designing and implementing a chatting system that supports single and group chats, including diagrams, database structure, a responsive chat interface, and extensions for media messages.<br>
+I've built the chat interface using Next.js for a responsive web and mobile view. The dummy JSON data is used for rendering conversations, and I've extended it to support images, videos, and PDFs. The project is deployed for easy evaluation, and the code is available in this repository.
+- **Deployment Link**: https://qiscus-assessment.haydaramru.com/
+- **Repository Link**: https://github.com/haydaramru/qiscus-assessment
 
+## Tech Stack
+
+- Frontend: Next.js
+- Styling: Tailwind CSS and Shadcn UI
+- Data: Static JSON files (original and extended)
+- Diagrams: Created with Draw.io (exported as PNG)
+
+No backend or database is implemented, as the focus is on frontend and design. The UI loads data from local JSON files.
+
+## Installation and Local Setup
+
+To run the project locally:
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/haydaramru/qiscus-assessment.git
+cd qiscus-assessment
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+bun install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server
+```bash
+bun run dev
+```
+Open http://localhost:3000 in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Task Breakdown
 
-## Learn More
+### 1. Chatting System Diagram
+- File: `diagrams/1_chatting_system_diagram.png`
+- Description: A high-level architecture diagram showing components like clients (web/mobile), server, database, and flows for single and group chats. It includes real-time communication assumptions (e.g., WebSockets) for scalability.
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Database Structure (ERD)
+- File: `diagrams/2_chat_erd.png`
+- Description: An Entity-Relationship Diagram modeling entities such as Rooms, Participants, and Messages. Designed with a NoSQL approach (e.g., collections in MongoDB/Firestore) for flexibility with unstructured data like media attachments. Relationships include one-to-many for rooms to messages.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Chat Interface with Responsive View
+- Location: Live at the [deployment link](https://qiscus-assessment.haydaramru.com/) (root: `/inbox`)
+- Description: A responsive chat UI using the dummy JSON from https://bit.ly/chat_room_endpoint.
+- Data Source: `data/chat_response.json`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Extended JSON Format
+- File: `data/extended_chat_response.json`
+- Description: Extended the original payload to support "image", "video", and "pdf" message types. Added a "url" field for media links and sample messages.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 5. Updated Chat Interface for Media
+- Location: Live at the [deployment link](https://qiscus-assessment.haydaramru.com/) (root: `/inbox`)
+- Description: Enhanced the UI from task 3 to render media by adding `"url"` and "`caption`" fields, which maps each comment to `Message` props (mediaUrl, content, filename) based on its type. `Message` conditionally renders text, linked image previews (`img`), HTML5 video (`video controls`), or a PDF link.
