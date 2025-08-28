@@ -3,21 +3,16 @@
 import RoomChatContainer from "@/components/shared/room-chat/RoomChatContainer";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Header from "./_components/Header";
 import Body from "./_components/body/Body";
 import ChatInput from "./_components/input/ChatInput";
 import axios from "axios";
 import { ChatItem } from "@/lib/types";
 
-type Props = {
-    params: {
-        roomId: string
-    }
-}
-
-const RoomChatPage = ({ params: { roomId } }: Props) => {
+const RoomChatPage = () => {
     const router = useRouter()
+    const { roomId } = useParams<{ roomId: string }>()
     const [inbox, setInbox] = useState<ChatItem | null | undefined>(undefined)
 
     useEffect(() => {
